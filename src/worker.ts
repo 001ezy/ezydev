@@ -6,10 +6,18 @@ interface Env {
 
 const worker = {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const response = await env.ASSETS.fetch(request);
     const pathname = new URL(request.url).pathname;
     const acceptsHtml = request.headers.get("accept")?.includes("text/html") ?? false;
     const needsFreshDocument = acceptsHtml || pathname === "/robots.txt" || pathname === "/sitemap.xml";
+    let assetRequest = request;
+
+    if (needsFreshDocument) {
+      const assetUrl = new URL(request.url);
+      assetUrl.searchParams.set("__ezy_asset", Date.now().toString(36));
+      assetRequest = new Request(assetUrl, request);
+    }
+
+    const response = await env.ASSETS.fetch(assetRequest);
 
     if (request.method !== "GET" || !needsFreshDocument) return response;
 
