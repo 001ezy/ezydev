@@ -26,7 +26,11 @@ const worker = {
     headers.set("CDN-Cache-Control", "no-store");
     headers.set("Cloudflare-CDN-Cache-Control", "no-store");
 
-    return new Response(response.body, {
+    // Buffer the small document responses before forwarding them. This avoids
+    // passing a potentially stalled static-asset stream through the H2 edge.
+    const body = await response.arrayBuffer();
+
+    return new Response(body, {
       status: response.status,
       statusText: response.statusText,
       headers,
