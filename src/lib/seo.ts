@@ -4,7 +4,7 @@ const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 export const SITE_ORIGIN = isGitHubPages
   ? "https://001ezy.github.io"
-  : "https://ezydev.mr-eshmambetov.workers.dev";
+  : "https://ezydev.001ezy.workers.dev";
 export const SITE_BASE_PATH = isGitHubPages ? "/ezydev" : "";
 export const SITE_URL = `${SITE_ORIGIN}${SITE_BASE_PATH}/`;
 
