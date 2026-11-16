@@ -199,6 +199,7 @@ const translations: Record<string, string> = Object.fromEntries([
     ["Explore ÉLAN concept project", "Открыть концепт ÉLAN"],
     ["Explore NEXUS concept project", "Открыть концепт NEXUS"],
     ["VIEW PROJECT ↗", "СМОТРЕТЬ ПРОЕКТ ↗"],
+    ["LIVE DEMO ↗", "ОТКРЫТЬ ДЕМО ↗"],
     ["REAL ESTATE", "НЕДВИЖИМОСТЬ"], ["HOSPITALITY", "ГОСТЕПРИИМСТВО"],
     ["EDUCATION", "ОБРАЗОВАНИЕ"], ["AUTOMOTIVE", "АВТОСЕРВИС"],
     ["CONSTRUCTION", "СТРОИТЕЛЬСТВО"], ["HEALTHCARE", "МЕДИЦИНА"],
@@ -254,13 +255,16 @@ const translations: Record<string, string> = Object.fromEntries([
     ["Route calculator", "Калькулятор маршрута"], ["Weight and service-level pricing", "Расчёт по весу и тарифу"], ["Sample tracking timeline", "Пример отслеживания отправления"], ["Choose what you have in mind", "Расскажите, что вы задумали"]
 ]);
 
-const translationEntries = Object.entries(translations).sort((a, b) => b[0].length - a[0].length);
+const translationEntries = Object.entries(translations);
 
 type Language = "en" | "ru";
 
 function translateValue(value: string, language: Language) {
   let translated = value;
-  for (const [english, russian] of translationEntries) {
+  const entries = [...translationEntries].sort((a, b) =>
+    language === "ru" ? b[0].length - a[0].length : b[1].length - a[1].length
+  );
+  for (const [english, russian] of entries) {
     const source = language === "ru" ? english : russian;
     const replacement = language === "ru" ? russian : english;
     if (source && translated.includes(source)) translated = translated.replaceAll(source, replacement);
