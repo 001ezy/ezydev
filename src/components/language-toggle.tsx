@@ -271,6 +271,20 @@ function readSavedLanguage(): Language {
   return cookie?.split("=")[1] === "ru" ? "ru" : "en";
 }
 
+function syncInternalLinks(language: Language, root: Element = document.body) {
+  const anchors: HTMLAnchorElement[] = [
+    ...(root instanceof HTMLAnchorElement ? [root] : []),
+    ...root.querySelectorAll<HTMLAnchorElement>("a[href]"),
+  ];
+  for (const anchor of anchors) {
+    const destination = new URL(anchor.href, window.location.href);
+    if (destination.origin !== window.location.origin || !(destination.pathname === "/ezydev" || destination.pathname.startsWith("/ezydev/"))) continue;
+    if (language === "ru") destination.searchParams.set("lang", "ru");
+    else destination.searchParams.delete("lang");
+    anchor.href = destination.toString();
+  }
+}
+
 function syncLanguageUrl(language: Language) {
   const current = new URL(window.location.href);
   if (language === "ru") current.searchParams.set("lang", "ru");
@@ -330,12 +344,15 @@ export function LanguageToggle() {
     document.documentElement.lang = savedLanguage;
     if (savedLanguage === "ru") syncLanguageUrl("ru");
     translateElement(document.body, savedLanguage);
+    syncInternalLinks(savedLanguage);
 
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         for (const added of mutation.addedNodes) {
-          if (added instanceof Element) translateElement(added, savedLanguage);
-          else if (added.nodeType === Node.TEXT_NODE && added.nodeValue) {
+          if (added instanceof Element) {
+            translateElement(added, savedLanguage);
+            syncInternalLinks(savedLanguage, added);
+          } else if (added.nodeType === Node.TEXT_NODE && added.nodeValue) {
             added.nodeValue = translateValue(added.nodeValue, savedLanguage);
           }
         }
@@ -366,6 +383,7 @@ export function LanguageToggle() {
     document.documentElement.lang = next;
     saveLanguage(next);
     syncLanguageUrl(next);
+    syncInternalLinks(next);
     setLanguage(next);
   }
 
