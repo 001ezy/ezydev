@@ -4,6 +4,7 @@ const work = [
   ["vertex","VERTEX","REAL ESTATE","A clearer way to find a place to call home.","vertex"],
   ["noir","NOIR","HOSPITALITY","A restaurant experience for the hours after.","noir"],
   ["orbit","ORBIT","EDUCATION","A learning platform that moves at your pace.","orbit"],
+  ["motion","MOTION","AUTOMOTIVE","Expert care for every mile ahead.","motion"],
 ];
 
 export default function WorkPage() {
