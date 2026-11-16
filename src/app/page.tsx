@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contact-form";
+import { LanguageToggle } from "@/components/language-toggle";
 
 const projects = [
   { number: "01", name: "VERTEX", kind: "REAL ESTATE / DIGITAL FLAGSHIP", className: "vertex", label: "A better way to find your place." },
@@ -32,7 +33,7 @@ export default function Home() {
         <nav className="main-nav" aria-label="Main navigation">
           <a href="#work">Work</a><a href="#services">Services</a><a href="#studio">Studio</a>
         </nav>
-        <a className="header-cta" href="#contact">Let’s talk <Arrow diagonal /></a>
+        <div className="header-actions"><LanguageToggle /><a className="header-cta" href="#contact">Let’s talk <Arrow diagonal /></a></div>
       </header>
 
       <main id="top">
