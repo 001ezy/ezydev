@@ -261,6 +261,29 @@ const translationEntries = Object.entries(translations);
 
 type Language = "en" | "ru";
 
+function readSavedLanguage(): Language {
+  try {
+    if (localStorage.getItem("ezydev-language") === "ru") return "ru";
+  } catch {
+    // Cookie fallback supports browsers that restrict local storage.
+  }
+  const cookie = document.cookie.split(";").map((part) => part.trim()).find((part) => part.startsWith("ezydev-language="));
+  return cookie?.split("=")[1] === "ru" ? "ru" : "en";
+}
+
+function saveLanguage(language: Language) {
+  try {
+    localStorage.setItem("ezydev-language", language);
+  } catch {
+    // The first-party cookie below is the fallback.
+  }
+  try {
+    document.cookie = `ezydev-language=${language}; Path=/ezydev; Max-Age=31536000; SameSite=Lax; Secure`;
+  } catch {
+    // Language still applies for the current page if persistent storage is blocked.
+  }
+}
+
 function translateValue(value: string, language: Language) {
   let translated = value;
   const entries = [...translationEntries].sort((a, b) =>
@@ -294,7 +317,7 @@ export function LanguageToggle() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const savedLanguage: Language = localStorage.getItem("ezydev-language") === "ru" ? "ru" : "en";
+    const savedLanguage = readSavedLanguage();
     if (savedLanguage !== language) window.setTimeout(() => setLanguage(savedLanguage), 0);
     document.documentElement.lang = savedLanguage;
     translateElement(document.body, savedLanguage);
@@ -317,7 +340,7 @@ export function LanguageToggle() {
     if (next === language) return;
     translateElement(document.body, next);
     document.documentElement.lang = next;
-    localStorage.setItem("ezydev-language", next);
+    saveLanguage(next);
     setLanguage(next);
   }
 
