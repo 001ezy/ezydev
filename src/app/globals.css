@@ -41,3 +41,30 @@
 .elan-time-error{color:#e6b69e!important;margin-top:-9px}
 
 .vitalis-slot-error{color:#a34532!important;margin-top:-9px}
+
+/* Refined navigation and the fourth portfolio tile */
+.site-header{gap:clamp(12px,2vw,30px)}
+.main-nav{gap:clamp(5px,1vw,14px);align-items:center;color:#d1d3cc}
+.main-nav a{position:relative;display:inline-flex;align-items:center;min-height:40px;padding:0 13px;border:1px solid transparent;border-radius:999px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;transition:color .2s,border-color .2s,background .2s,transform .2s,box-shadow .2s}
+.main-nav a:hover{color:var(--lime);border-color:#b8ff6548;background:#b8ff650d;box-shadow:0 0 22px #b8ff6512;transform:translateY(-1px)}
+.main-nav a:active{transform:scale(.96)}
+.work-more-card{width:100%!important;grid-column:auto!important;align-self:stretch}
+.project-more-link{position:relative;isolation:isolate;overflow:hidden;display:flex;min-height:clamp(260px,38vw,500px);height:100%;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:15px;padding:clamp(22px,3vw,40px);border:1px solid #b8ff6544;background:radial-gradient(ellipse at 80% 25%,#a9d27c38,transparent 34%),linear-gradient(145deg,#202923,#161c19 68%,#111514);color:#f3f1eb;transition:border-color .3s,transform .4s,box-shadow .3s}
+.project-more-link:hover{border-color:#b8ff65aa;transform:translateY(-4px);box-shadow:0 18px 60px #0005}
+.project-more-link:active{transform:scale(.985)}
+.project-more-link:before{content:"10";position:absolute;z-index:-1;right:-.07em;bottom:-.33em;color:#b8ff650b;font-size:clamp(190px,26vw,360px);font-weight:700;line-height:1;letter-spacing:-.12em;transition:color .4s,transform .6s}
+.project-more-link:hover:before{color:#b8ff6518;transform:translate(-10px,-8px)}
+.project-more-kicker,.project-more-action{font:10px var(--mono);letter-spacing:.12em;color:var(--lime)}
+.project-more-link strong{font-size:clamp(38px,5vw,68px);font-weight:500;line-height:.95;letter-spacing:-.075em}
+.project-more-link strong i{font-family:Georgia,serif;font-weight:400;color:#b8ff65}
+.project-more-copy{max-width:300px;color:#b2b8ae;font-size:13px;line-height:1.6}
+.project-more-action{margin-top:9px;padding-bottom:5px;border-bottom:1px solid #b8ff6580}
+/* The pointer ring follows immediately; a soft gradient aura trails behind. */
+.custom-cursor{position:fixed;z-index:1001;top:0;left:0;width:20px;height:20px;border:1px solid #cfff93;border-radius:50%;pointer-events:none;opacity:0;transition:width .18s ease,height .18s ease,background .18s ease,border-color .18s ease;will-change:transform;mix-blend-mode:screen;box-shadow:0 0 12px #b8ff6570}
+.cursor-trail{position:fixed;z-index:1000;top:0;left:0;width:105px;height:105px;border-radius:50%;pointer-events:none;opacity:0;will-change:transform;background:radial-gradient(circle,#b8ff653d 0%,#70d8ff21 32%,#8a65ff0e 58%,transparent 75%);filter:blur(13px);mix-blend-mode:screen;transition:opacity .2s}
+.cursor-link .custom-cursor{width:34px;height:34px;border-color:#cfff93;background:#b8ff6520}
+.cursor-project .custom-cursor{width:48px;height:48px;background:#b8ff6517}
+.project-open{display:none!important}
+@media(max-width:760px){.main-nav{gap:4px}.main-nav a{min-height:34px;padding:0 8px;font-size:9px;letter-spacing:.04em}.project-more-link{min-height:clamp(280px,72vw,440px)}}
+@media(max-width:390px){.main-nav a{padding:0 6px;font-size:8px}}
+@media(pointer:coarse),(prefers-reduced-motion:reduce){.cursor-trail,.custom-cursor{display:none}}

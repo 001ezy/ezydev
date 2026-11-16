@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Experience() {
-  const [point, setPoint] = useState({ x: -80, y: -80 });
-  const [active, setActive] = useState(false);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const trailRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -12,18 +12,46 @@ export function Experience() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return;
 
+    let targetX = -80;
+    let targetY = -80;
+    let trailX = targetX;
+    let trailY = targetY;
+    let frame = 0;
+
+    const animateTrail = () => {
+      trailX += (targetX - trailX) * 0.2;
+      trailY += (targetY - trailY) * 0.2;
+      if (trailRef.current) trailRef.current.style.transform = `translate3d(${trailX}px, ${trailY}px, 0) translate(-50%, -50%)`;
+      if (Math.abs(targetX - trailX) > 0.35 || Math.abs(targetY - trailY) > 0.35) frame = window.requestAnimationFrame(animateTrail);
+      else frame = 0;
+    };
     const move = (event: PointerEvent) => {
-      setPoint({ x: event.clientX, y: event.clientY });
-      setActive(true);
-      const target = event.target as HTMLElement | null;
+      targetX = event.clientX;
+      targetY = event.clientY;
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = "1";
+        cursorRef.current.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
+      }
+      if (trailRef.current) trailRef.current.style.opacity = "1";
+      if (!frame) frame = window.requestAnimationFrame(animateTrail);
+      const target = event.target instanceof Element ? event.target : null;
       document.body.classList.toggle("cursor-link", Boolean(target?.closest("a, button, select")));
-      document.body.classList.toggle("cursor-project", Boolean(target?.closest(".project-art")));
+      document.body.classList.toggle("cursor-project", Boolean(target?.closest(".project-art, .project-more-link")));
+    };
+    const hide = () => {
+      if (cursorRef.current) cursorRef.current.style.opacity = "0";
+      if (trailRef.current) trailRef.current.style.opacity = "0";
+      document.body.classList.remove("cursor-link", "cursor-project");
     };
     const scroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
     };
-    if (finePointer) window.addEventListener("pointermove", move, { passive: true });
+    if (finePointer) {
+      window.addEventListener("pointermove", move, { passive: true });
+      window.addEventListener("blur", hide);
+      document.documentElement.addEventListener("pointerleave", hide);
+    }
     window.addEventListener("scroll", scroll, { passive: true });
     scroll();
 
@@ -41,7 +69,12 @@ export function Experience() {
     });
 
     return () => {
-      if (finePointer) window.removeEventListener("pointermove", move);
+      if (finePointer) {
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("blur", hide);
+        document.documentElement.removeEventListener("pointerleave", hide);
+      }
+      if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", scroll);
       observer.disconnect();
       document.body.classList.remove("cursor-link", "cursor-project");
@@ -50,6 +83,7 @@ export function Experience() {
 
   return <>
     <div className="scroll-progress" style={{ transform: `scaleX(${progress / 100})` }} aria-hidden="true" />
-    <div className={`custom-cursor${active ? " is-active" : ""}`} style={{ left: point.x, top: point.y }} aria-hidden="true"><span>VIEW</span></div>
+    <div ref={trailRef} className="cursor-trail" aria-hidden="true" />
+    <div ref={cursorRef} className="custom-cursor" aria-hidden="true" />
   </>;
 }
