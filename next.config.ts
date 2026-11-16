@@ -4,7 +4,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: "export",
   trailingSlash: true,
-  basePath: "/ezydev",
+  // GitHub Pages hosts this repository under /ezydev; Cloudflare serves it at /.
+  ...(process.env.GITHUB_PAGES === "true" ? { basePath: "/ezydev" } : {}),
   images: { unoptimized: true },
 };
 
