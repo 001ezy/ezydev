@@ -29,10 +29,15 @@ export function LanguageToggle() {
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let node: Node | null;
     while ((node = walker.nextNode())) {
-      const value = node.nodeValue;
+      let value = node.nodeValue;
       if (!value) continue;
-      const replacement = translations[value.trim()];
-      if (replacement) node.nodeValue = value.replace(value.trim(), replacement);
+      const entries = Object.entries(translations).sort((a, b) => b[0].length - a[0].length);
+      for (const [en, ru] of entries) {
+        const source = next === "ru" ? en : ru;
+        const replacement = next === "ru" ? ru : en;
+        if (value.includes(source)) value = value.replaceAll(source, replacement);
+      }
+      node.nodeValue = value;
     }
     for (const element of document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[placeholder], textarea[placeholder]")) {
       const value = element.placeholder;
