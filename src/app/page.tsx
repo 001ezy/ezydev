@@ -1,5 +1,5 @@
 import { ContactForm } from "@/components/contact-form";
-import { LanguageToggle } from "@/components/language-toggle";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 
 const projects = [
   { number: "01", name: "VERTEX", kind: "REAL ESTATE / DIGITAL FLAGSHIP", className: "vertex", label: "A better way to find your place." },
@@ -28,13 +28,7 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
 export default function Home() {
   return (
     <>
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="EZY DEV home">EZY DEV<span>.</span></a>
-        <nav className="main-nav" aria-label="Main navigation">
-          <a href="#work">Work</a><a href="#services">Services</a><a href="#studio">Studio</a>
-        </nav>
-        <div className="header-actions"><LanguageToggle /><a className="header-cta" href="#contact">Let’s talk <Arrow diagonal /></a></div>
-      </header>
+      <SiteHeader />
 
       <main id="top">
         <section className="hero section-shell">
@@ -50,7 +44,7 @@ export default function Home() {
         <section className="work-section section-shell" id="work">
           <div className="section-heading"><div><span className="eyebrow">A FEW THINGS WE’VE MADE</span><h2>Selected work<span className="lime">.</span></h2></div><p>Independent concepts.<br />Built to feel like the real thing.</p></div>
           <div className="work-grid">{projects.map((project) => <article className={`project-card ${project.className}`} key={project.number}>
-            <a className="project-art" href="#contact" aria-label={`Discuss a project like ${project.name}`}>
+            <a className="project-art" href={`/ezydev/work/${project.name.toLowerCase()}/`} aria-label={`Explore ${project.name} concept project`}>
               <span className="concept-stamp">CONCEPT<br />PROJECT</span><span className="project-art-word">{project.name}</span><span className="project-art-note">{project.label}</span><span className="project-open"><Arrow diagonal /></span>
             </a>
             <div className="project-caption"><span>{project.number} / {project.kind}</span><span>{project.name}</span></div>
@@ -79,7 +73,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer section-shell"><a className="wordmark" href="#top">EZY DEV<span>.</span></a><span>DIGITAL EXPERIENCES. ENGINEERED TO PERFORM.</span><div><a href="#top">BACK TO TOP ↑</a><span>© {new Date().getFullYear()} EZY DEV.</span></div></footer>
+      <SiteFooter />
     </>
   );
 }
