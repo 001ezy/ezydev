@@ -5,6 +5,12 @@ const work = [
   ["noir","NOIR","HOSPITALITY","A restaurant experience for the hours after.","noir"],
   ["orbit","ORBIT","EDUCATION","A learning platform that moves at your pace.","orbit"],
   ["motion","MOTION","AUTOMOTIVE","Expert care for every mile ahead.","motion"],
+  ["forma","FORMA","CONSTRUCTION","Architecture shaped around the way you live.","f1"],
+  ["vitalis","VITALIS","HEALTHCARE","A more human kind of healthcare.","f2"],
+  ["atelier","ATELIER","FURNITURE","Considered furniture for everyday rituals.","f3"],
+  ["alterra","ALTERRA","HOSPITALITY","A quieter kind of somewhere.","f4"],
+  ["elan","ÉLAN","BEAUTY & WELLNESS","A little space to come back to yourself.","noir"],
+  ["nexus","NEXUS","LOGISTICS","Cross-border delivery with a human touch.","orbit"],
 ];
 
 export default function WorkPage() {
