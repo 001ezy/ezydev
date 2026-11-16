@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { createPageMetadata } from "@/lib/seo";
 
 const projects = [
   { number: "01", name: "VERTEX", kind: "REAL ESTATE / DIGITAL FLAGSHIP", className: "vertex", label: "A better way to find your place." },
@@ -24,6 +26,8 @@ const steps = [
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true" className="arrow">{diagonal ? "↗" : "→"}</span>;
 }
+
+export const metadata: Metadata = createPageMetadata("Digital Studio for Websites & Digital Products", "EZY DEV is an independent digital studio creating high-performing websites and digital products for ambitious businesses.");
 
 export default function Home() {
   return (
