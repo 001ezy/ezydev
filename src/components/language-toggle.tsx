@@ -271,6 +271,13 @@ function readSavedLanguage(): Language {
   return cookie?.split("=")[1] === "ru" ? "ru" : "en";
 }
 
+function syncLanguageUrl(language: Language) {
+  const current = new URL(window.location.href);
+  if (language === "ru") current.searchParams.set("lang", "ru");
+  else current.searchParams.delete("lang");
+  window.history.replaceState(window.history.state, "", `${current.pathname}${current.search}${current.hash}`);
+}
+
 function saveLanguage(language: Language) {
   try {
     localStorage.setItem("ezydev-language", language);
@@ -317,9 +324,11 @@ export function LanguageToggle() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const savedLanguage = readSavedLanguage();
+    const urlLanguage = new URLSearchParams(window.location.search).get("lang");
+    const savedLanguage: Language = urlLanguage === "ru" ? "ru" : urlLanguage === "en" ? "en" : readSavedLanguage();
     if (savedLanguage !== language) window.setTimeout(() => setLanguage(savedLanguage), 0);
     document.documentElement.lang = savedLanguage;
+    if (savedLanguage === "ru") syncLanguageUrl("ru");
     translateElement(document.body, savedLanguage);
 
     const observer = new MutationObserver((mutations) => {
@@ -333,7 +342,22 @@ export function LanguageToggle() {
       }
     });
     observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    const preserveLanguageOnLink = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const anchor = target.closest<HTMLAnchorElement>("a[href]");
+      if (!anchor) return;
+      const destination = new URL(anchor.href, window.location.href);
+      if (destination.origin !== window.location.origin || !(destination.pathname === "/ezydev" || destination.pathname.startsWith("/ezydev/"))) return;
+      if (document.documentElement.lang === "ru") destination.searchParams.set("lang", "ru");
+      else destination.searchParams.delete("lang");
+      anchor.href = destination.toString();
+    };
+    document.addEventListener("click", preserveLanguageOnLink, true);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("click", preserveLanguageOnLink, true);
+    };
   }, [pathname, language]);
 
   function switchLanguage(next: Language) {
@@ -341,6 +365,7 @@ export function LanguageToggle() {
     translateElement(document.body, next);
     document.documentElement.lang = next;
     saveLanguage(next);
+    syncLanguageUrl(next);
     setLanguage(next);
   }
 
