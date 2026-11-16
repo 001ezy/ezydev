@@ -74,7 +74,7 @@ export default function Home() {
         </section>
 
         <section className="contact-section section-shell" id="contact">
-          <div className="contact-intro"><span className="eyebrow">HAVE A GOOD ONE IN MIND?</span><h2>Let’s make<br />it matter<span className="lime">.</span></h2><p>Tell us a little about what you’re working on. We’ll take it from there.</p><a href="mailto:hello@ezydev.studio" className="contact-email">hello@ezydev.studio <Arrow diagonal /></a></div>
+          <div className="contact-intro"><span className="eyebrow">HAVE A GOOD ONE IN MIND?</span><h2>Let’s make<br />it matter<span className="lime">.</span></h2><p>Tell us a little about what you’re working on. We’ll take it from there.</p><a href="mailto:mr.eshmambetov@gmail.com" className="contact-email">mr.eshmambetov@gmail.com <Arrow diagonal /></a></div>
           <ContactForm />
         </section>
       </main>

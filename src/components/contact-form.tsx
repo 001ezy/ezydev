@@ -22,7 +22,7 @@ export function ContactForm() {
       String(data.get("details")),
     ].join("\n"));
     setNotice("Your email app should open with the enquiry ready to send. Nothing is submitted or stored on this website.");
-    window.location.href = `mailto:hello@ezydev.studio?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:mr.eshmambetov@gmail.com?subject=${subject}&body=${body}`;
   }
 
   return <form className="contact-form" onSubmit={handleSubmit}>
