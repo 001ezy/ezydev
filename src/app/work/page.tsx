@@ -1,3 +1,4 @@
+import { sitePath } from "@/lib/site-path";
 import { PageFrame } from "@/components/site-chrome";
 import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -18,5 +19,5 @@ const work = [
 export const metadata: Metadata = createPageMetadata('Selected Website & Product Work', 'Explore ten independent concept projects across real estate, hospitality, education, automotive and more.', "work");
 
 export default function WorkPage() {
-  return <PageFrame eyebrow="SELECTED WORK / CONCEPTS" title="Ideas made tangible" intro="Independent concept projects. Each one explores how a thoughtful digital product can make a business experience clearer and more useful."><div className="portfolio-grid">{work.map(([slug,name,kind,desc,style],i)=><article className={`project-card ${style}`} key={slug}><a href={`/ezydev/work/${slug}/`} className="project-art"><span className="concept-stamp">CONCEPT<br/>PROJECT</span><span className="project-art-word">{name}</span><span className="project-art-note">{desc}</span></a><div className="project-caption"><span>0{i+1} / {kind}</span><a href={`/ezydev/work/${slug}/`}>VIEW PROJECT ↗</a></div></article>)}</div></PageFrame>;
+  return <PageFrame eyebrow="SELECTED WORK / CONCEPTS" title="Ideas made tangible" intro="Independent concept projects. Each one explores how a thoughtful digital product can make a business experience clearer and more useful."><div className="portfolio-grid">{work.map(([slug,name,kind,desc,style],i)=><article className={`project-card ${style}`} key={slug}><a href={sitePath(`/work/${slug}/`)} className="project-art"><span className="concept-stamp">CONCEPT<br/>PROJECT</span><span className="project-art-word">{name}</span><span className="project-art-note">{desc}</span></a><div className="project-caption"><span>0{i+1} / {kind}</span><a href={sitePath(`/work/${slug}/`)}>VIEW PROJECT ↗</a></div></article>)}</div></PageFrame>;
 }

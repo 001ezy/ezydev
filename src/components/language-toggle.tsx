@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { SITE_PATH_PREFIX } from "@/lib/site-path";
 
 const translations: Record<string, string> = Object.fromEntries([
     ["WHAT WE DO", "ЧЕМ МЫ ЗАНИМАЕМСЯ"],
@@ -32,7 +33,9 @@ const translations: Record<string, string> = Object.fromEntries([
     ["HOW WE THINK", "НАШ ПОДХОД"],
     ["HOW WE WORK ↗", "КАК МЫ РАБОТАЕМ ↗"],
     ["Good digital work is ", "Качественные цифровые решения "],
+    ["Good digital work is", "Качественная цифровая работа"],
     [" considered in its details, and made to do more than just look the part.", " продуманы в деталях и ценны не только своим внешним видом."],
+    ["considered in its details, and made to do more than just look the part.", "продумана в деталях и ценна не только своим внешним видом."],
     ["A CLOSE, SENIOR TEAM", "ОПЫТНАЯ КОМАНДА"],
     ["Thoughtful by design. Practical by nature.", "Продуманный дизайн. Практичный подход."],
     ["MEET US ON YOUR PROJECT ↗", "ПОЗНАКОМИМСЯ НА ВАШЕМ ПРОЕКТЕ ↗"],
@@ -54,9 +57,37 @@ const translations: Record<string, string> = Object.fromEntries([
     ["Contact form", "Форма связи"],
     ["This website does not send or store information entered in the project enquiry form. When you submit it, your device opens your email application and prepares a message addressed to mr.eshmambetov@gmail.com. You choose whether to send it.", "Сайт не отправляет и не сохраняет сведения, введённые в форму. При отправке устройство открывает почтовое приложение и готовит письмо для mr.eshmambetov@gmail.com. Решение отправлять письмо остаётся за вами."],
     ["Hosting and analytics", "Хостинг и аналитика"],
-    ["The site is hosted by GitHub Pages. GitHub may process basic technical information required to deliver and secure the site. This project does not intentionally use advertising cookies or analytics trackers.", "Сайт размещён на GitHub Pages. GitHub может обрабатывать базовые технические данные, необходимые для работы и защиты сайта. Проект не использует рекламные cookies и системы аналитического отслеживания."],
+    ["The site is hosted by Cloudflare Workers. Cloudflare may process basic technical information required to deliver and secure the site. This project does not intentionally use advertising cookies or analytics trackers.", "Сайт размещён на Cloudflare Workers. Cloudflare может обрабатывать базовые технические данные, необходимые для работы и защиты сайта. Проект не использует рекламные cookies и системы аналитического отслеживания."],
     ["Questions", "Вопросы"],
     ["For questions about privacy or a message you sent, contact ", "По вопросам конфиденциальности или отправленного вами письма свяжитесь с нами: "],
+    ["For questions about privacy or a message you sent, contact", "По вопросам конфиденциальности или отправленного вами письма свяжитесь с нами"],
+    ["Digital Studio for Websites & Digital Products | EZY DEV.", "Цифровая студия сайтов и продуктов | EZY DEV."],
+    ["Digital Studio for Websites & Digital Products", "Цифровая студия сайтов и цифровых продуктов"],
+    ["Website Design & Digital Product Services | EZY DEV.", "Дизайн сайтов и цифровые продукты | EZY DEV."],
+    ["Selected Website & Product Work | EZY DEV.", "Избранные сайты и цифровые продукты | EZY DEV."],
+    ["About EZY DEV. | EZY DEV.", "О студии EZY DEV. | EZY DEV."],
+    ["Our Website Design & Development Process | EZY DEV.", "Процесс дизайна и разработки сайтов | EZY DEV."],
+    ["Start a Website or Digital Product Project | EZY DEV.", "Обсудить сайт или цифровой продукт | EZY DEV."],
+    ["Privacy Policy | EZY DEV.", "Политика конфиденциальности | EZY DEV."],
+    ["A clearer first step", "Понятный первый шаг"],
+    ["A CLEARER FIRST STEP", "ПОНЯТНЫЙ ПЕРВЫЙ ШАГ"],
+    ["Make the numbers", "Посчитаем стоимость"],
+    ["feel real.", "без догадок."],
+    ["Explore an indicative estimate for your selected residence. Final pricing and availability are confirmed by the sales team.", "Посмотрите ориентировочный расчёт выбранной квартиры. Итоговую цену и наличие подтвердит отдел продаж."],
+    ["YOUR SELECTION", "ВАШ ВЫБОР"],
+    [" BED /", " комн. /"],
+    ["INDICATIVE STARTING PRICE", "ОРИЕНТИРОВОЧНАЯ ЦЕНА"],
+    ["ESTIMATED DOWN PAYMENT", "ОЦЕНОЧНЫЙ ПЕРВОНАЧАЛЬНЫЙ ВЗНОС"],
+    ["ESTIMATED FINANCED AMOUNT", "ОЦЕНОЧНАЯ СУММА ФИНАНСИРОВАНИЯ"],
+    ["ILLUSTRATIVE MONTHLY PAYMENT", "ОРИЕНТИРОВОЧНЫЙ ПЛАТЁЖ В МЕСЯЦ"],
+    ["Illustration only: 7.5% annual interest over 20 years. Excludes taxes and fees; not a financing offer.", "Только для примера: ставка 7,5% годовых на 20 лет. Без налогов и сборов; не является предложением по кредиту."],
+    ["DEMO ORDER CONFIRMED", "ДЕМО-ЗАКАЗ ПОДТВЕРЖДЁН"],
+    ["Thank you. This is a demonstration only; no payment was taken and no restaurant order was sent.", "Спасибо! Это демонстрация: оплата не принималась, заказ в ресторан не отправлен."],
+    ["START ANOTHER ORDER", "СОЗДАТЬ ЕЩЁ ОДИН ЗАКАЗ"],
+    ["Choose valid future dates and a room that fits your guest count.", "Выберите будущие даты и номер, подходящий по количеству гостей."],
+    ["Choose valid dates", "Выберите корректные даты"],
+    ["Choose arrival", "Выберите дату заезда"],
+    ["Choose departure", "Выберите дату выезда"],
     ["Work", "Работы"],
     ["Services", "Услуги"],
     ["Studio", "Студия"],
@@ -102,6 +133,7 @@ const translations: Record<string, string> = Object.fromEntries([
     ["A sharper experience, a stronger foundation and a practical path to what comes after launch.", "Удобный опыт, надёжная основа и понятный план развития после запуска."],
     ["A LITTLE ABOUT US", "НЕМНОГО О НАС"],
     ["We believe the best digital work is ", "Мы верим, что лучшие цифровые решения "],
+    ["We believe the best digital work is", "Мы верим, что лучшие цифровые решения"],
     ["clear in its purpose,", "ясны по смыслу,"],
     ["INDEPENDENT BY DESIGN. COLLABORATIVE BY NATURE.", "НЕЗАВИСИМЫ ПО ФОРМАТУ. ОТКРЫТЫ К СОТРУДНИЧЕСТВУ."],
     ["MEET YOUR NEW PARTNER", "ДАВАЙТЕ ЗНАКОМИТЬСЯ"],
@@ -268,6 +300,14 @@ const translationEntries = Object.entries(translations);
 
 type Language = "en" | "ru";
 
+const sitePathPrefix = SITE_PATH_PREFIX.replace(/\/$/, "");
+
+function isSitePath(pathname: string) {
+  return sitePathPrefix
+    ? pathname === sitePathPrefix || pathname.startsWith(`${sitePathPrefix}/`)
+    : pathname.startsWith("/");
+}
+
 function readSavedLanguage(): Language {
   try {
     if (localStorage.getItem("ezydev-language") === "ru") return "ru";
@@ -284,8 +324,9 @@ function syncInternalLinks(language: Language, root: Element = document.body) {
     ...root.querySelectorAll<HTMLAnchorElement>("a[href]"),
   ];
   for (const anchor of anchors) {
+    if (anchor.getAttribute("href")?.startsWith("#")) continue;
     const destination = new URL(anchor.href, window.location.href);
-    if (destination.origin !== window.location.origin || !(destination.pathname === "/ezydev" || destination.pathname.startsWith("/ezydev/"))) continue;
+    if (destination.origin !== window.location.origin || !isSitePath(destination.pathname)) continue;
     if (language === "ru") destination.searchParams.set("lang", "ru");
     else destination.searchParams.delete("lang");
     anchor.href = destination.toString();
@@ -306,7 +347,7 @@ function saveLanguage(language: Language) {
     // The first-party cookie below is the fallback.
   }
   try {
-    document.cookie = `ezydev-language=${language}; Path=/ezydev; Max-Age=31536000; SameSite=Lax; Secure`;
+    document.cookie = `ezydev-language=${language}; Path=${sitePathPrefix || "/"}; Max-Age=31536000; SameSite=Lax; Secure`;
   } catch {
     // Language still applies for the current page if persistent storage is blocked.
   }
@@ -314,6 +355,22 @@ function saveLanguage(language: Language) {
 
 function translateValue(value: string, language: Language) {
   let translated = value;
+  if (language === "ru") {
+    translated = translated.replace(/\b(\d+)\s+nights?\b/gi, (_match, rawCount: string) => {
+      const count = Number(rawCount);
+      const mod100 = count % 100;
+      const mod10 = count % 10;
+      const unit = mod100 >= 11 && mod100 <= 14 ? "ночей" : mod10 === 1 ? "ночь" : mod10 >= 2 && mod10 <= 4 ? "ночи" : "ночей";
+      return `${count} ${unit}`;
+    });
+    translated = translated.replace(/\b(\d+)\s+guests?\b/gi, (_match, rawCount: string) => {
+      const count = Number(rawCount);
+      const mod100 = count % 100;
+      const mod10 = count % 10;
+      const unit = mod100 >= 11 && mod100 <= 14 ? "гостей" : mod10 === 1 ? "гость" : mod10 >= 2 && mod10 <= 4 ? "гостя" : "гостей";
+      return `${count} ${unit}`;
+    });
+  }
   const entries = [...translationEntries].sort((a, b) =>
     language === "ru" ? b[0].length - a[0].length : b[1].length - a[1].length
   );
@@ -326,17 +383,23 @@ function translateValue(value: string, language: Language) {
 }
 
 function translateElement(element: Element, language: Language) {
-  const elements = [element, ...element.querySelectorAll("[aria-label], [title], [placeholder]")];
+  const elements = [element, ...element.querySelectorAll("[aria-label], [title], [placeholder], [alt]")];
   for (const target of elements) {
-    for (const attribute of ["aria-label", "title", "placeholder"]) {
+    for (const attribute of ["aria-label", "title", "placeholder", "alt"]) {
       const value = target.getAttribute(attribute);
-      if (value) target.setAttribute(attribute, translateValue(value, language));
+      if (value) {
+        const translated = translateValue(value, language);
+        if (translated !== value) target.setAttribute(attribute, translated);
+      }
     }
   }
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
   let node: Node | null;
   while ((node = walker.nextNode())) {
-    if (node.nodeValue) node.nodeValue = translateValue(node.nodeValue, language);
+    if (node.nodeValue) {
+      const translated = translateValue(node.nodeValue, language);
+      if (translated !== node.nodeValue) node.nodeValue = translated;
+    }
   }
 }
 
@@ -349,30 +412,41 @@ export function LanguageToggle() {
     const savedLanguage: Language = urlLanguage === "ru" ? "ru" : urlLanguage === "en" ? "en" : readSavedLanguage();
     if (savedLanguage !== language) window.setTimeout(() => setLanguage(savedLanguage), 0);
     document.documentElement.lang = savedLanguage;
+    document.title = translateValue(document.title, savedLanguage);
     if (savedLanguage === "ru") syncLanguageUrl("ru");
     translateElement(document.body, savedLanguage);
     syncInternalLinks(savedLanguage);
 
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
+        if (mutation.type === "characterData") {
+          const node = mutation.target;
+          if (node.nodeValue) {
+            const translated = translateValue(node.nodeValue, savedLanguage);
+            if (translated !== node.nodeValue) node.nodeValue = translated;
+          }
+          continue;
+        }
         for (const added of mutation.addedNodes) {
           if (added instanceof Element) {
             translateElement(added, savedLanguage);
             syncInternalLinks(savedLanguage, added);
           } else if (added.nodeType === Node.TEXT_NODE && added.nodeValue) {
-            added.nodeValue = translateValue(added.nodeValue, savedLanguage);
+            const translated = translateValue(added.nodeValue, savedLanguage);
+            if (translated !== added.nodeValue) added.nodeValue = translated;
           }
         }
       }
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, characterData: true, subtree: true });
     const preserveLanguageOnLink = (event: MouseEvent) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
       const anchor = target.closest<HTMLAnchorElement>("a[href]");
       if (!anchor) return;
+      if (anchor.getAttribute("href")?.startsWith("#")) return;
       const destination = new URL(anchor.href, window.location.href);
-      if (destination.origin !== window.location.origin || !(destination.pathname === "/ezydev" || destination.pathname.startsWith("/ezydev/"))) return;
+      if (destination.origin !== window.location.origin || !isSitePath(destination.pathname)) return;
       if (document.documentElement.lang === "ru") destination.searchParams.set("lang", "ru");
       else destination.searchParams.delete("lang");
       anchor.href = destination.toString();
@@ -388,6 +462,7 @@ export function LanguageToggle() {
     if (next === language) return;
     translateElement(document.body, next);
     document.documentElement.lang = next;
+    document.title = translateValue(document.title, next);
     saveLanguage(next);
     syncLanguageUrl(next);
     syncInternalLinks(next);

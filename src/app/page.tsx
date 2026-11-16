@@ -1,3 +1,4 @@
+import { sitePath } from "@/lib/site-path";
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
@@ -48,12 +49,12 @@ export default function Home() {
         <section className="work-section section-shell" id="work">
           <div className="section-heading"><div><span className="eyebrow">A FEW THINGS WE’VE MADE</span><h2>Selected work<span className="lime">.</span></h2></div><p>Independent concepts.<br />Built to feel like the real thing.</p></div>
           <div className="work-grid">{projects.map((project) => <article className={`project-card ${project.className}`} key={project.number}>
-            <a className="project-art" href={`/ezydev/work/${project.name.toLowerCase()}/`} aria-label={`Explore ${project.name} concept project`}>
+            <a className="project-art" href={sitePath(`/work/${project.name.toLowerCase()}/`)} aria-label={`Explore ${project.name} concept project`}>
               <span className="concept-stamp">CONCEPT<br />PROJECT</span><span className="project-art-word">{project.name}</span><span className="project-art-note">{project.label}</span>
             </a>
             <div className="project-caption"><span>{project.number} / {project.kind}</span><span>{project.name}</span></div>
           </article>)}
-            <article className="project-card work-more-card"><a className="project-more-link" href="/ezydev/work/" aria-label="See all ten concept projects">
+            <article className="project-card work-more-card"><a className="project-more-link" href={sitePath("/work/")} aria-label="See all ten concept projects">
               <span className="project-more-kicker">04 / THE FULL COLLECTION</span><strong>For more<br/><i>to explore.</i></strong><span className="project-more-copy">Explore ten concept projects across real estate, hospitality, education and more.</span><span className="project-more-action">VIEW ALL WORK</span><span className="project-more-number" aria-hidden="true">10</span>
             </a></article>
           </div>

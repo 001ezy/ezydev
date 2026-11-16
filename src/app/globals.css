@@ -68,3 +68,5 @@
 @media(max-width:760px){.main-nav{gap:4px}.main-nav a{min-height:34px;padding:0 8px;font-size:9px;letter-spacing:.04em}.project-more-link{min-height:clamp(280px,72vw,440px)}}
 @media(max-width:390px){.main-nav a{padding:0 6px;font-size:8px}}
 @media(pointer:coarse),(prefers-reduced-motion:reduce){.cursor-trail,.custom-cursor{display:none}}
+.calculator-assumption{margin:-8px 0 22px;font:8px/1.6 var(--mono);color:#7d8578}.noir-order-done{display:grid;gap:12px;padding:20px;background:#dce2d6}.noir-order-done>span{font-size:20px}.noir-order-done h3,.noir-order-done p{margin:0}.noir-order-done h3{font:11px var(--mono)}.noir-order-done p{font:9px/1.6 var(--mono);color:#616a5e}.noir-order-done button{border:0;background:#333e32;color:#fff;padding:13px;text-align:left;font:9px var(--mono);cursor:pointer}
+.alterra-form-error{grid-column:1/-1;color:#8c3025;font:8px/1.5 var(--mono)}

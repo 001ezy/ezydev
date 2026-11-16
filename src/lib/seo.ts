@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { SITE_PATH_PREFIX } from "@/lib/site-path";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 export const SITE_ORIGIN = isGitHubPages
   ? "https://001ezy.github.io"
   : "https://ezydev.001ezy.workers.dev";
-export const SITE_BASE_PATH = isGitHubPages ? "/ezydev" : "";
+export const SITE_BASE_PATH = SITE_PATH_PREFIX || (isGitHubPages ? "/ezydev" : "");
 export const SITE_URL = `${SITE_ORIGIN}${SITE_BASE_PATH}/`;
 
 export function absoluteSiteUrl(pathname = "") {

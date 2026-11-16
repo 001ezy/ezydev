@@ -1,3 +1,4 @@
+import { sitePath } from "@/lib/site-path";
 import { notFound } from "next/navigation";
 import { PageFrame } from "@/components/site-chrome";
 import { createPageMetadata } from "@/lib/seo";
@@ -24,4 +25,4 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   if(!project)return {};
   return createPageMetadata(`${project.name} ${project.kind.split(" /")[0]} Website Concept`,project.desc,`work/${slug}`);
 }
-export default async function ProjectPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const project=projects[slug];if(!project)notFound();return <PageFrame eyebrow={project.kind} title={project.name} intro={project.desc}><section className={`project-art detail-art ${slug}`}><span className="concept-stamp">CONCEPT<br/>PROJECT</span><span className="project-art-word">{project.name}</span></section><section className="project-detail-copy"><div><span className="eyebrow">THE IDEA</span><h2>{project.title}</h2></div><ul>{project.features.map(x=><li key={x}>{x}<span>↗</span></li>)}</ul></section><div className="page-cta"><a className="button button-lime" href={`/ezydev/${slug}/`}>LIVE DEMO ↗</a> <a className="button button-lime" href="/ezydev/contact/">BUILD SOMETHING LIKE THIS ↗</a></div></PageFrame>}
+export default async function ProjectPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const project=projects[slug];if(!project)notFound();return <PageFrame eyebrow={project.kind} title={project.name} intro={project.desc}><section className={`project-art detail-art ${slug}`}><span className="concept-stamp">CONCEPT<br/>PROJECT</span><span className="project-art-word">{project.name}</span></section><section className="project-detail-copy"><div><span className="eyebrow">THE IDEA</span><h2>{project.title}</h2></div><ul>{project.features.map(x=><li key={x}>{x}<span>↗</span></li>)}</ul></section><div className="page-cta"><a className="button button-lime" href={sitePath(`/${slug}/`)}>LIVE DEMO ↗</a> <a className="button button-lime" href={sitePath("/contact/")}>BUILD SOMETHING LIKE THIS ↗</a></div></PageFrame>}

@@ -1,3 +1,4 @@
+import { sitePath } from "@/lib/site-path";
 import { PageFrame } from "@/components/site-chrome";
 import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -12,5 +13,5 @@ const items = [
 export const metadata: Metadata = createPageMetadata('Website Design & Digital Product Services', 'Digital strategy, websites, e-commerce and web applications designed around your business and customers.', "services");
 
 export default function ServicesPage() {
-  return <PageFrame eyebrow="WHAT WE DO" title="Built around your next move" intro="From the first useful question to the final detail before launch, we bring strategy, design and engineering together."><section className="detail-list">{items.map(([n,t,d,tags])=><article className="detail-row" key={n}><span className="service-number">{n}</span><div><h2>{t}</h2><p>{d}</p><small>{tags}</small></div><span className="service-plus">↗</span></article>)}</section><section className="page-cta"><span className="eyebrow">READY WHEN YOU ARE</span><h2>Let’s make something useful<span className="lime">.</span></h2><a className="button button-lime" href="/ezydev/contact/">START A PROJECT ↗</a></section></PageFrame>;
+  return <PageFrame eyebrow="WHAT WE DO" title="Built around your next move" intro="From the first useful question to the final detail before launch, we bring strategy, design and engineering together."><section className="detail-list">{items.map(([n,t,d,tags])=><article className="detail-row" key={n}><span className="service-number">{n}</span><div><h2>{t}</h2><p>{d}</p><small>{tags}</small></div><span className="service-plus">↗</span></article>)}</section><section className="page-cta"><span className="eyebrow">READY WHEN YOU ARE</span><h2>Let’s make something useful<span className="lime">.</span></h2><a className="button button-lime" href={sitePath("/contact/")}>START A PROJECT ↗</a></section></PageFrame>;
 }

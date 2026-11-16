@@ -30,6 +30,7 @@ jobs:
       - name: Build static website
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_SITE_PATH_PREFIX: /ezydev
         run: npm run build
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
