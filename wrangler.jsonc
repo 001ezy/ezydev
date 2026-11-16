@@ -1,9 +1,32 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ezydev",
+  "main": "./src/worker.ts",
   "compatibility_date": "2026-11-16",
   "assets": {
     "directory": "./out",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": [
+      "/",
+      "/robots.txt",
+      "/sitemap.xml",
+      "/about/*",
+      "/services/*",
+      "/work/*",
+      "/process/*",
+      "/contact/*",
+      "/privacy/*",
+      "/vertex/*",
+      "/motion/*",
+      "/noir/*",
+      "/forma/*",
+      "/vitalis/*",
+      "/atelier/*",
+      "/alterra/*",
+      "/elan/*",
+      "/nexus/*",
+      "/orbit/*"
+    ]
   }
 }
