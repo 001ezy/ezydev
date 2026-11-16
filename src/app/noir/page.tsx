@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint @next/next/no-img-element: "off" */
 import { useMemo, useState } from "react";
 
 const menu=[
@@ -13,7 +14,6 @@ const menu=[
  {id:"pear",name:"Poached pear",category:"Something sweet",desc:"Vanilla, almond, warm spice",price:14,tag:"SEASONAL"},
 ];
 const categories=["All","Small plates","From the kitchen","Something sweet"];
-const dishImages=["#6e735a","#c89b67","#c9b995","#8d614a","#89917d","#66483e","#3f302d","#b4a27e"];
 const photoIds=["photo-1772494048070-9fd1d7aa3fde","photo-1632808664408-f8ab196b0523","photo-1772494048070-9fd1d7aa3fde","photo-1772494048070-9fd1d7aa3fde","photo-1632808664408-f8ab196b0523","photo-1772494048070-9fd1d7aa3fde","photo-1632808664408-f8ab196b0523","photo-1772494048070-9fd1d7aa3fde"];
 export default function NoirDemo(){
  const [category,setCategory]=useState("All");const [cart,setCart]=useState<Record<string,number>>({});const [order,setOrder]=useState(false);const [booked,setBooked]=useState(false);const [cartOpen,setCartOpen]=useState(false);
