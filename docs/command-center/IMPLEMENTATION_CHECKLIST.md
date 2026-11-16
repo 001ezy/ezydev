@@ -10,8 +10,8 @@ Progress is tracked here so work can resume without treating proposals or discon
 ## Phase 2 — Foundation
 - [ ] Select and provision the database/auth service; document owner-controlled account and access setup.
 - [ ] Create isolated Command Center application boundary without changing portfolio behavior.
-- [ ] Define environment variable contract using placeholders only; never commit secrets.
-- [ ] Design initial schema/migrations for users/roles, settings, audit logs and execution records.
+- [x] Document environment variable contract using placeholders only; never commit secrets.
+- [x] Draft initial schema migration for profiles/roles, settings, audit logs and execution records (not applied or connected).
 - [ ] Implement authentication and role enforcement; verify anonymous access is denied and tenant/data policies work.
 - [ ] Keep Command Center deployment disabled until authentication and authorization are verified.
 
