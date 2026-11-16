@@ -10,7 +10,7 @@ export function Experience() {
   useEffect(() => {
     const finePointer = window.matchMedia("(pointer: fine)").matches;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!finePointer || reducedMotion) return;
+    if (reducedMotion) return;
 
     const move = (event: PointerEvent) => {
       setPoint({ x: event.clientX, y: event.clientY });
@@ -23,7 +23,7 @@ export function Experience() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
     };
-    window.addEventListener("pointermove", move, { passive: true });
+    if (finePointer) window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("scroll", scroll, { passive: true });
     scroll();
 
@@ -41,7 +41,7 @@ export function Experience() {
     });
 
     return () => {
-      window.removeEventListener("pointermove", move);
+      if (finePointer) window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", scroll);
       observer.disconnect();
       document.body.classList.remove("cursor-link", "cursor-project");
