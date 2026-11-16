@@ -1,40 +1,19 @@
-interface Env {
-  ASSETS: {
-    fetch(request: Request): Promise<Response>;
-  };
-}
+const PAGES_ORIGIN = "https://001ezy.github.io";
+const PAGES_REPOSITORY_PATH = "/ezydev";
 
 const worker = {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const pathname = new URL(request.url).pathname;
-    const acceptsHtml = request.headers.get("accept")?.includes("text/html") ?? false;
-    const needsFreshDocument = acceptsHtml || pathname === "/robots.txt" || pathname === "/sitemap.xml";
-    let assetRequest = request;
+  async fetch(request: Request): Promise<Response> {
+    const sourceUrl = new URL(request.url);
+    let pathname = sourceUrl.pathname;
 
-    if (needsFreshDocument) {
-      const assetUrl = new URL(request.url);
-      assetUrl.searchParams.set("__ezy_asset", Date.now().toString(36));
-      assetRequest = new Request(assetUrl, request);
+    if (pathname !== "/" && !pathname.endsWith("/") && !pathname.split("/").at(-1)?.includes(".")) {
+      pathname += "/";
     }
 
-    const response = await env.ASSETS.fetch(assetRequest);
+    const destination = new URL(`${PAGES_REPOSITORY_PATH}${pathname}`, PAGES_ORIGIN);
+    destination.search = sourceUrl.search;
 
-    if (request.method !== "GET" || !needsFreshDocument) return response;
-
-    const headers = new Headers(response.headers);
-    headers.set("Cache-Control", "no-store");
-    headers.set("CDN-Cache-Control", "no-store");
-    headers.set("Cloudflare-CDN-Cache-Control", "no-store");
-
-    // Buffer the small document responses before forwarding them. This avoids
-    // passing a potentially stalled static-asset stream through the H2 edge.
-    const body = await response.arrayBuffer();
-
-    return new Response(body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    });
+    return Response.redirect(destination.toString(), 302);
   },
 };
 
