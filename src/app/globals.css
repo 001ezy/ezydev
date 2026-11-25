@@ -78,3 +78,16 @@
   .contact-form :is(input,select,textarea,button):focus-visible{outline:2px solid var(--lime);outline-offset:3px}
 }
 .contact-form .form-scope-note{min-height:0;max-width:720px;margin:-13px 0 0}
+
+/* Keep the sticky mobile header clear of anchor targets and separate compact nav items. */
+@media(max-width:760px){
+  html{scroll-padding-top:116px}
+  .site-header .main-nav{justify-content:flex-start;column-gap:12px}
+  .site-header .main-nav a{flex:none;white-space:nowrap;border-color:#ffffff20;background:#ffffff08}
+  .contact-standalone .contact-intro>.eyebrow{display:block}
+  .contact-standalone .contact-intro>.contact-email{display:block;width:fit-content;margin-top:16px}
+}
+@media(max-width:360px){
+  .site-header .main-nav{column-gap:8px}
+  .site-header .main-nav a{padding-inline:6px;font-size:8px}
+}
