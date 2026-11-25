@@ -34,4 +34,8 @@ assert.match(languages, /EZY START — адаптивный однострани
 assert.match(css, /@media\(max-width:390px\)/);
 assert.match(css, /\.form-pair\{grid-template-columns:1fr\}/);
 assert.match(css, /\.contact-form input,\.contact-form select\{min-height:44px\}/);
+assert.match(css, /html\{scroll-padding-top:116px\}/);
+assert.match(css, /\.site-header \.main-nav a\{flex:none;white-space:nowrap;border-color:/);
+assert.match(css, /\.contact-standalone \.contact-intro>\.eyebrow\{display:block\}/);
+assert.match(css, /\.contact-standalone \.contact-intro>\.contact-email\{display:block;width:fit-content;margin-top:16px\}/);
 console.log("PASS public contact package: USD 100 EZY START, separately priced add-ons, RU/EN labels, mobile stacking and user-controlled email handoff");
