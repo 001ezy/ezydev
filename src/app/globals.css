@@ -70,3 +70,11 @@
 @media(pointer:coarse),(prefers-reduced-motion:reduce){.cursor-trail,.custom-cursor{display:none}}
 .calculator-assumption{margin:-8px 0 22px;font:8px/1.6 var(--mono);color:#7d8578}.noir-order-done{display:grid;gap:12px;padding:20px;background:#dce2d6}.noir-order-done>span{font-size:20px}.noir-order-done h3,.noir-order-done p{margin:0}.noir-order-done h3{font:11px var(--mono)}.noir-order-done p{font:9px/1.6 var(--mono);color:#616a5e}.noir-order-done button{border:0;background:#333e32;color:#fff;padding:13px;text-align:left;font:9px var(--mono);cursor:pointer}
 .alterra-form-error{grid-column:1/-1;color:#8c3025;font:8px/1.5 var(--mono)}
+
+/* Public contact form targets remain easy to use on phones. */
+@media(max-width:760px){
+  .contact-form input,.contact-form select{min-height:44px}
+  .contact-form textarea{min-height:92px}
+  .contact-form :is(input,select,textarea,button):focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+}
+.contact-form .form-scope-note{min-height:0;max-width:720px;margin:-13px 0 0}
