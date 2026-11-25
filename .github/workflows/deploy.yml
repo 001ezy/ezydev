@@ -32,6 +32,8 @@ jobs:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_SITE_PATH_PREFIX: /ezydev
         run: npm run build
+      - name: Verify public contact offer and Pages artifact
+        run: npm run test:public-contact-package && npm run test:public-pages-artifact
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
