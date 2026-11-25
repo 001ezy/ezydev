@@ -17,7 +17,7 @@ export function ContactForm() {
       `Company: ${data.get("company") || "Not provided"}`,
       `Email: ${data.get("email")}`,
       `Project type: ${data.get("type")}`,
-      `Budget range: ${data.get("budget") || "Not provided"}`,
+      `Package or add-ons: ${data.get("package") || "Not provided"}`,
       "",
       String(data.get("details")),
     ].join("\n"));
@@ -30,7 +30,8 @@ export function ContactForm() {
     <label>Company <input name="company" autoComplete="organization" placeholder="Your company" /></label>
     <label>Email <span>*</span><input name="email" type="email" autoComplete="email" required placeholder="you@company.com" /></label>
     <div className="form-pair"><label>Project type <span>*</span><select name="type" required defaultValue=""><option value="" disabled>Select one</option><option>Business website</option><option>E-commerce</option><option>Web application</option><option>Redesign</option><option>Something else</option></select></label>
-    <label>Budget range <select name="budget" defaultValue=""><option value="">Select a range</option><option>Under $5k</option><option>$5k–$15k</option><option>$15k–$40k</option><option>$40k+</option><option>Let’s discuss</option></select></label></div>
+    <label>Package or add-ons <select name="package" defaultValue=""><option value="">Choose a starting point</option><option value="EZY START — USD 100 — one-page website">EZY START · $100 · one-page website</option><option value="EZY START + extra pages — priced separately">Extra pages · priced separately</option><option value="EZY START + custom functionality — scoped and priced separately">Custom features · priced separately</option><option value="EZY START + integrations — scoped and priced separately">Integrations · priced separately</option><option value="Paid domain, hosting or ongoing maintenance — priced separately">Domain, hosting or maintenance · priced separately</option><option value="Not sure — help me scope it">Not sure yet — help me scope it</option></select></label></div>
+    <p className="form-note form-scope-note">EZY START is one responsive page for $100. Extra pages, custom features, integrations, paid domain or hosting, and ongoing support are scoped and priced separately. This form only prepares an email; you choose whether to send it.</p>
     <label>Tell us about the project <span>*</span><textarea name="details" required minLength={20} rows={3} placeholder="What are you looking to make happen?" /></label>
     <button className="button button-lime form-submit" type="submit">PREPARE ENQUIRY <span aria-hidden="true">↗</span></button>
     <p className="form-note" aria-live="polite">{notice || "Required fields marked with *. Your details stay in your email app until you choose to send."}</p>

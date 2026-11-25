@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test:public-contact-package": "node scripts/test-public-contact-package.mjs",
+    "test:public-pages-artifact": "node scripts/test-public-pages-artifact.mjs",
     "lint": "eslint ."
   },
   "dependencies": {
